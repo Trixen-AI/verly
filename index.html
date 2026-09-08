@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/mark.svg" />
+    <link rel="apple-touch-icon" href="/brand/png/veyl-mark-256.png" />
+    <link rel="canonical" href="https://veylprotocol.com/" />
+
+    <title>Veyl Protocol | Confidential settlement for tokenized equities</title>
+    <meta
+      name="description"
+      content="Veyl encrypts balances and transfer amounts at the settlement layer, so tokenized stock positions stay private while every transaction remains verifiable onchain."
+    />
+    <meta name="theme-color" content="#faf9f5" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Veyl Protocol" />
+    <meta property="og:url" content="https://veylprotocol.com/" />
+    <meta property="og:title" content="Veyl Protocol | Confidential settlement for tokenized equities" />
+    <meta
+      property="og:description"
+      content="Hold equities onchain without publishing your book. Encrypted balances, private transfer amounts, verifiable settlement."
+    />
+    <meta property="og:image" content="https://veylprotocol.com/brand/png/veyl-og-1200x630.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Veyl Protocol | Confidential settlement for tokenized equities" />
+    <meta
+      name="twitter:description"
+      content="Hold equities onchain without publishing your book. Encrypted balances, private transfer amounts, verifiable settlement."
+    />
+    <meta name="twitter:image" content="https://veylprotocol.com/brand/png/veyl-og-1200x630.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Inter:wght@300;400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Arm the reveal animations before first paint so elements never flash
+         in and then jump. Skipped entirely under prefers-reduced-motion, and
+         a no-JS visitor simply keeps everything visible. -->
+    <script>
+      try {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('js-motion')
+        }
+      } catch (e) {}
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

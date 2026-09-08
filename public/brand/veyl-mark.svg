@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Veyl">
+  <title>Veyl</title>
+  <rect width="64" height="64" rx="14" fill="#4F5D31"/>
+  <g>
+    <path d="M56.99 31.3A25 25 0 0 0 45.1 10.71L32.32 20.6L41.71 26.03Z" fill="#FAF9F5"/>
+    <path d="M43.89 10.01A25 25 0 0 0 20.11 10.01L22.29 26.03L31.68 20.6Z" fill="#FAF9F5"/>
+    <path d="M18.9 10.71A25 25 0 0 0 7.01 31.3L21.97 37.42L21.97 26.58Z" fill="#FAF9F5" opacity="0.86"/>
+    <path d="M7.01 32.7A25 25 0 0 0 18.9 53.29L31.68 43.4L22.29 37.97Z" fill="#FAF9F5" opacity="0.62"/>
+    <path d="M20.11 53.99A25 25 0 0 0 43.89 53.99L41.71 37.97L32.32 43.4Z" fill="#FAF9F5" opacity="0.44"/>
+    <path d="M45.1 53.29A25 25 0 0 0 56.99 32.7L42.03 26.58L42.03 37.42Z" fill="#FAF9F5" opacity="0.7"/>
+  </g>
+</svg>

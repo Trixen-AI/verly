@@ -1,0 +1,3 @@
+# SPA fallback for Netlify-style hosts. Direct hits on /docs/... and /app must
+# serve index.html rather than 404, because routing happens client side.
+/*  /index.html  200
