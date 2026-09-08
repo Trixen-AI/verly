@@ -350,41 +350,40 @@ configuring in the dashboard except environment variables.
 
 ### Environment variables
 
-Set these in **Site configuration, Environment variables**. `.env` is
-gitignored, so nothing carries over from local: every value below has to be
-entered in Netlify as well.
+Almost nothing needs configuring. Stock token addresses, RPC endpoints and the
+target chain all ship in `src/config/`, because they are public on-chain
+identifiers rather than deployment settings.
 
-Everything prefixed `VITE_` is compiled into the public client bundle. None of
-these is a secret, and none of them should ever be one.
+Set these in **Site configuration, Environment variables**:
 
-**Required for the app to function**
+| Variable                | When                    | If unset                                      |
+| ----------------------- | ----------------------- | --------------------------------------------- |
+| `VITE_REOWN_PROJECT_ID` | Now                     | The connect button is absent; the rest of the app still renders and reads the chain. |
+| `VITE_VAULT_ADDRESS`    | When the vault deploys  | Deposit, transfer and redeem fail with a chain error. |
+| `VITE_FHE_RELAYER_URL`  | When the relayer is up  | Confidential transfers are rejected on chain. |
+| `VITE_TWELVEDATA_KEY`   | Optional                | Hero prices use the seed figures and the card reads `Indicative`. |
 
-| Variable                 | Notes                                                        |
-| ------------------------ | ------------------------------------------------------------ |
-| `VITE_REOWN_PROJECT_ID`  | From dashboard.reown.com. Restrict it by domain there.        |
-| `VITE_ASSET_ADDRESSES`   | Verified stock token map, below. Paste as a single line.      |
-| `VITE_VAULT_ADDRESS`     | The deployed vault. Deposits, transfers and redemptions fail without it. |
-| `VITE_FHE_RELAYER_URL`   | Zama relayer. Confidential transfers need it.                 |
+Everything prefixed `VITE_` is compiled into the public client bundle. A Reown
+project id is a public client identifier by design, so restrict it by domain in
+the Reown dashboard rather than treating it as a secret. The market-data key is
+the one value that would be better behind a proxy: set `VITE_QUOTES_ENDPOINT`
+to your own function instead, and the key never reaches the browser.
 
-**Optional**
+**Optional overrides**, all with working defaults in code:
 
-| Variable               | Effect if unset                                              |
-| ---------------------- | ------------------------------------------------------------ |
-| `VITE_TWELVEDATA_KEY`  | Hero prices fall back to seed figures and read `Indicative`.   |
-| `VITE_QUOTES_ENDPOINT` | Preferred over the key: point it at your own proxy so the market-data key stays server side. |
-| `VITE_RPC_MAINNET`     | Falls back to the rate-limited public RPC. Use a dedicated provider in production. |
-| `VITE_RPC_TESTNET`     | Same, for testnet.                                            |
-| `VITE_USE_TESTNET`     | `true` targets chain 46630 instead of 4663.                    |
+| Variable               | Default                                             |
+| ---------------------- | --------------------------------------------------- |
+| `VITE_RPC_MAINNET`     | `https://rpc.mainnet.chain.robinhood.com` (rate limited) |
+| `VITE_RPC_TESTNET`     | `https://rpc.testnet.chain.robinhood.com`            |
+| `VITE_USE_TESTNET`     | Unset targets mainnet, chain 4663                    |
+| `VITE_ASSET_ADDRESSES` | The verified map in `src/config/assets.ts`           |
 
-### VITE_ASSET_ADDRESSES
+### Stock token addresses
 
-Robinhood Chain stock tokens. Every address was verified against the live RPC:
-`symbol()` matches the ticker, `decimals()` is 18, and the account has contract
-bytecode.
-
-```
-VITE_ASSET_ADDRESSES={"AAPL":"0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9","AMZN":"0x12f190a9F9d7D37a250758b26824B97CE941bF54","GOOGL":"0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3","META":"0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35","MSFT":"0xe93237C50D904957Cf27E7B1133b510C669c2e74","MSTR":"0xec262a75e413fAfD0dF80480274532C79D42da09","NVDA":"0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC","QCOM":"0x0f17206447090e464C277571124dD2688E48AEA9","SPY":"0x117cc2133c37B721F49dE2A7a74833232B3B4C0C","TSLA":"0x322F0929c4625eD5bAd873c95208D54E1c003b2d"}
-```
+They live in `src/config/assets.ts`, not in the environment. Each was verified
+against the live RPC: the account has contract bytecode, `symbol()` matches the
+ticker, and `decimals()` is 18. `VITE_ASSET_ADDRESSES` overrides them per
+ticker for a testnet or a local fork.
 
 ### After the first deploy
 
@@ -392,6 +391,8 @@ VITE_ASSET_ADDRESSES={"AAPL":"0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9","AMZN"
   usable from anywhere else.
 - Set `VITE_QUOTES_ENDPOINT` rather than shipping a market-data key, once a
   proxy exists.
+- Fill in `VITE_VAULT_ADDRESS` and `VITE_FHE_RELAYER_URL` as those pieces go
+  live. No code change is needed.
 - `X-Frame-Options: SAMEORIGIN` in `netlify.toml` blocks third-party framing.
   Remove it only if you later need the dapp to run inside a Safe App or an
   embedded wallet browser.

@@ -40,7 +40,7 @@ export const infra = {
 export const links = {
   app: '/app',
   docs: '/docs',
-  x: 'https://x.com/VerylProtocol',
+  x: 'https://x.com/VeylProtocol',
   dex: '#',
   chart: '#',
   terms: '#',
